@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background: rgba(49, 48, 48, 1);
+    text-align: center;
+    padding: 15px 0;  
+}
+
+header h1 {
+    color: white;
+    font-size: 60px;
+}
+
+.search-container {
+    background-color: rgb(224, 223, 223);
+}
+
+.form-title {
+    margin: 12px 5px 5px 12px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.search-input-div {
+    margin: 0 5px 5px 12px;
+    width: 80%;
+}
+
+#search-input {
+    height: 40px;
+    vertical-align: middle;
+}
+
+#submit-btn {
+    height: 40px;
+    width: 40px;
+    background-color: blue;
+    vertical-align: middle;
+    border-radius: 5px;
+}
