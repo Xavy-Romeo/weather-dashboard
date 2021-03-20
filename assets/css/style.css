@@ -21,18 +21,20 @@ header h1 {
 
 .form-title {
     margin: 12px 5px 5px 12px;
-    font-size: 20px;
+    font-size: 26px;
     font-weight: bold;
 }
 
 .search-input-div {
     margin: 0 5px 5px 12px;
-    width: 80%;
 }
 
 #search-input {
     height: 40px;
     vertical-align: middle;
+    max-width: 85%;
+    font-size: 32px;
+   
 }
 
 #submit-btn {
@@ -41,4 +43,8 @@ header h1 {
     background-color: blue;
     vertical-align: middle;
     border-radius: 5px;
+}
+body
+ {
+    background-color: rgb(139, 139, 139);
 }
