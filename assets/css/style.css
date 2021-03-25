@@ -48,3 +48,40 @@ body
  {
     background-color: rgb(139, 139, 139);
 }
+
+.results {
+    font-size: 22px;
+}
+
+.results-current-div {
+    margin: 10px 0 0 0;
+    padding: 0 10px;
+    border: black solid 2px;
+    border-radius: 7px;
+    
+}
+
+.results-title-div {
+    margin: 0px;
+}
+
+.results-title {
+    margin: 20px 0 0 0;
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.forecast {
+    height: 300px;
+    width: 250px;
+    border: solid 2px black;
+    margin: 15px;
+    background-color: blue;
+    border-radius: 7px;
+} 
+
+#forecast-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}

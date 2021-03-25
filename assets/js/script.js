@@ -10,11 +10,11 @@ var createResultElements = function() {
 
     var resultsTitleDiv = $('<div>').addClass('row results-title-div');
     var currentWeatherDiv = $('<div>').addClass('current-weather-div');
-    $('.results-current-div').append(resultsTitleDiv, currentWeatherDiv);
+    displayResultsDiv.append(resultsTitleDiv, currentWeatherDiv);
     
     var resultsTitle = $('<p>').addClass('results-title');
     var titleIcon = $('<img>').addClass('title-icon');
-    $('.results-title-div').append(resultsTitle, titleIcon);
+    resultsTitleDiv.append(resultsTitle, titleIcon);
 
     var temperatureEl = $('<p>')
         .addClass('weather')
@@ -28,9 +28,19 @@ var createResultElements = function() {
     var uvIndexEl = $('<p>')
         .addClass('weather')
         .html('UV Index: <span id="uv-index"></span>');
-    $('.current-weather-div').append(temperatureEl, humidityEl, windSpeedEl, uvIndexEl);
+    currentWeatherDiv.append(temperatureEl, humidityEl, windSpeedEl, uvIndexEl);
 
-    // create elements for forecast
+    var forecastTitleEl = $('<p>').attr('id', 'forecast-title').text('5-Day Forecast:');
+    var forecastDiv = $('<div>').addClass('row forecastDiv');
+ 
+    $('#forecast-container').append(forecastTitleEl, forecastDiv);
+
+    var forecastEl1 = $('<div>').addClass('forecast').attr('id', 'forecast1');
+    var forecastEl2 = $('<div>').addClass('forecast').attr('id', 'forecast2');
+    var forecastEl3 = $('<div>').addClass('forecast').attr('id', 'forecast3');
+    var forecastEl4 = $('<div>').addClass('forecast').attr('id', 'forecast4');
+    var forecastEl5 = $('<div>').addClass('forecast').attr('id', 'forecast5');
+    forecastDiv.append(forecastEl1, forecastEl2, forecastEl3, forecastEl4, forecastEl5);
 };
 
 var search = function(event) {
