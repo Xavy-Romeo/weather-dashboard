@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
     
+    <!--Linking Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
@@ -16,7 +17,9 @@
     </header>
 
     <main class='row'>
+        <!--Search and Search History Section-->
         <section class='col-4 search-container'>
+            <!--City Input Form-->
             <form class='form'>
                 <p class='form-title'>Search for a City:</p>
                 <div class='search-input-div'>
@@ -24,68 +27,21 @@
                 </div>
             </form>
 
+            <!--Container to hold Input History-->
             <div id='history-container'></div>
         </section>
 
+        <!--Display Results Section-->
         <section class='col-8 results'>
+            <!--Container to hold Display of Input Results-->
             <div id='results-container'></div>
+            <!--Container to hold Display of Input 5-day Forecast-->
             <div id='forecast-container'></div>
         </section>
     </main>
-
-   <!--
-    1 - create the html based on the picture
-        a. create header 
-        b. search input
-        c. create the section for the api response
-        d. create the section for the forecast
-        e. create the section for the search history
-        -- doesn't need to be detail, it just needs a div or tag elements with ID's or classes
     
-    2 - create the logic
-
-        -----
-        GIVEN a weather dashboard with form inputs
-        WHEN I search for a city
-        THEN I am presented with current and future conditions for that city and that city is added to the search history
-        WHEN I view current weather conditions for that city
-        THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-        WHEN I view the UV index
-        THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-        WHEN I view future weather conditions for that city
-        THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
-        WHEN I click on a city in the search history
-        THEN I am again presented with current and future conditions for that city
-        ------
-
-    3 - create the api call
-    4 - look for the response and save the object
-    5 - local storage the object to call for a later time
-    6 - test the html hooks and start displaying data on the browser
-    7 - getting familiar with objects
-
-        example of object 
-        VVV
-        {
-            city: "London",
-            UVIndex: "45",
-            temperature:"145",
-            country: "United Kingdom",
-            date:"19/03/2021"
-
-        }
-
-        function(res) {
-            console.log(res);
-            let cityName = res.city;
-        }
-
--->
-    
-    
-    
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--Linking jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
     <script src='./assets/js/script.js'></script>
 </body>
 </html>
