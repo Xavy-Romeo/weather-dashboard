@@ -1,5 +1,6 @@
 var cityInput = '';
 var idArr = [1,2,3,4,5];
+var iArr = []
 
 // new API I am switching to
 var fetchCityWeather = function(cityInputData, cityLat, cityLon) {
@@ -48,11 +49,11 @@ var createResultElements = function() {
  
     $('#forecast-container').append(forecastTitleEl, forecastDiv);
 
-    for (i=0; i<5; i++) {
+    for(i=0; i<5; i++) {
     var forecastEl = $('<div>')
         .addClass('forecast')
         .attr('id', 'forecast' + idArr[i])
-        .html('<p id=date'+ idArr[i] +'></p><img id=forecast-icon'+ idArr[i] +'></img><p id=temp'+ idArr[i] +'></p><p id=humidity'+ idArr[i]+'></p>')
+        .html('<p class="forecast-dates" id=date'+ idArr[i] +'></p><img id=forecast-icon'+ idArr[i] +'></img><p id=temp'+ idArr[i] +'></p><p id=humidity'+ idArr[i]+'></p>')
  
     forecastDiv.append(forecastEl);
     }
@@ -120,10 +121,8 @@ var displayResults = function(cityData, cityInputData) {
     $('#humidity').text(cityData.current.humidity + '%');
     $('#wind-speed').text(Math.round((cityData.current.wind_speed)*10)/10 + ' MPH');
 
-    
-    // add forecast details
     for (i = 0; i < 5; i++) {
-        var unixDate = cityData.daily[i].dt*1000;
+        var unixDate = cityData.daily[i+1].dt*1000;
         var forecastDate = new Date (unixDate).toLocaleDateString('en-US'); 
         $('#date' + idArr[i]).text(forecastDate);
        
