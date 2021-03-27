@@ -1,4 +1,17 @@
 var cityInput = '';
+var idArr = [1,2,3,4,5];
+
+// new API I am switching to
+var fetchCityWeather = function(cityInputData, cityLat, cityLon) {
+    var weatherApiUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + cityLat + '&lon=' + cityLon + '&appid=3a01189ad2669a4fe12bba52ee8f9ead&units=imperial';
+    fetch(weatherApiUrl)
+    .then(function(cityData){
+        return cityData.json();
+    })
+    .then(function(cityData){
+        displayResults(cityData, cityInputData);
+    });
+};
 
 var createResultElements = function() {
     var displayResultsDiv = $('<div>');
@@ -35,12 +48,14 @@ var createResultElements = function() {
  
     $('#forecast-container').append(forecastTitleEl, forecastDiv);
 
-    var forecastEl1 = $('<div>').addClass('forecast').attr('id', 'forecast1');
-    var forecastEl2 = $('<div>').addClass('forecast').attr('id', 'forecast2');
-    var forecastEl3 = $('<div>').addClass('forecast').attr('id', 'forecast3');
-    var forecastEl4 = $('<div>').addClass('forecast').attr('id', 'forecast4');
-    var forecastEl5 = $('<div>').addClass('forecast').attr('id', 'forecast5');
-    forecastDiv.append(forecastEl1, forecastEl2, forecastEl3, forecastEl4, forecastEl5);
+    for (i=0; i<5; i++) {
+    var forecastEl = $('<div>')
+        .addClass('forecast')
+        .attr('id', 'forecast' + idArr[i])
+        .html('<p id=date'+ idArr[i] +'></p><img id=forecast-icon'+ idArr[i] +'></img><p id=temp'+ idArr[i] +'></p><p id=humidity'+ idArr[i]+'></p>')
+ 
+    forecastDiv.append(forecastEl);
+    }
 };
 
 var search = function(event) {
@@ -50,64 +65,79 @@ var search = function(event) {
     cityInput = $('#search-input').val();
     // clear input value
     $('#search-input').val('');
-    fetchCityWeather();
+    fetchCityCoordinates();
 };
 
-var fetchCityWeather = function() {
+var fetchCityCoordinates = function() {
     if (cityInput === '') {
-        var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=paris&appid=3a01189ad2669a4fe12bba52ee8f9ead&units=imperial';
+        var inputApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=paris&appid=3a01189ad2669a4fe12bba52ee8f9ead&units=imperial';
     }
     else {
-        var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityInput + '&appid=3a01189ad2669a4fe12bba52ee8f9ead&units=imperial';
+        var inputApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityInput + '&appid=3a01189ad2669a4fe12bba52ee8f9ead&units=imperial';
     }
-    
-    fetch(apiUrl)
+       
+    fetch(inputApiUrl)
     .then(function(response) {
         return response.json();
     })
     .then(function(response){
         var cityInputData = response;
+                
+        // pull lat and lon for new api
+        cityLat = cityInputData.city.coord.lat;
+        cityLon = cityInputData.city.coord.lon;
+        
+        fetchCityWeather(cityInputData, cityLat, cityLon);
         fetchUvIndex(cityInputData);
-        displayResults(cityInputData);
     });
 };
 
-var fetchUvIndex = function(cityData) {
-    var uvIndexUrl = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + cityData.city.coord.lat + '&lon=' + cityData.city.coord.lon + '&appid=3a01189ad2669a4fe12bba52ee8f9ead';
+var fetchUvIndex = function(cityInputData) {
+    var uvIndexUrl = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + cityInputData.city.coord.lat + '&lon=' + cityInputData.city.coord.lon + '&appid=3a01189ad2669a4fe12bba52ee8f9ead';
     
     fetch(uvIndexUrl)
     .then(function(response) {
         return response.json();
     })
     .then(function(response) {
-        uvIndex = response.value;
+        uvIndex = Math.round((response.value)*10)/10;
         $('#uv-index').text(uvIndex);
     });  
 }; 
 
-var displayResults = function(cityData) {
- 
-    var dateData = cityData.list[0].dt_txt.split(' ');
-    var date = dateData[0].split('-')
-    var dateFormat = '(' + date[1] + '/' + date[2] + '/' + date[0] + ')';  
-   
-    var iconUrl = 'http://openweathermap.org/img/wn/' + cityData.list[0].weather[0].icon +'@2x.png';
+var displayResults = function(cityData, cityInputData) {
+    console.log('cityData', cityData);   
+    var unixDateData = cityData.current.dt;
+    var date = new Date(unixDateData*1000).toLocaleDateString('en-US');
+    var dateFormat = '(' + date + ')';
+    
+    var iconUrl = 'http://openweathermap.org/img/wn/' + cityInputData.list[0].weather[0].icon +'@2x.png';
     $('.title-icon').attr('src', iconUrl);
 
-    $('.results-title').text(cityData.city.name + ' ' + dateFormat);
+    $('.results-title').text(cityInputData.city.name + ' ' + dateFormat);
    
-    $('#temperature').text(Math.round((cityData.list[0].main.temp)*10)/10 + ' \xB0F');
-    $('#humidity').text(cityData.list[0].main.humidity + '%');
-    $('#wind-speed').text(Math.round((cityData.list[0].wind.speed)*10)/10 + ' MPH');
-    // $('#uv-index').text(uvIndex);
+    $('#temperature').text(Math.round((cityData.current.temp)*10)/10 + ' \xB0F');
+    $('#humidity').text(cityData.current.humidity + '%');
+    $('#wind-speed').text(Math.round((cityData.current.wind_speed)*10)/10 + ' MPH');
 
-// add forecast after making elements in createElementDivs
+    
+    // add forecast details
+    for (i = 0; i < 5; i++) {
+        var unixDate = cityData.daily[i].dt*1000;
+        var forecastDate = new Date (unixDate).toLocaleDateString('en-US'); 
+        $('#date' + idArr[i]).text(forecastDate);
+       
+        var forecastIconUrl = 'http://openweathermap.org/img/wn/' + cityData.daily[i].weather[0].icon +'@2x.png';
+        $('#forecast-icon' + idArr[i]).attr('src', forecastIconUrl);
+        
+        var forecastTemp = (cityData.daily[i].temp.max).toFixed(1);
+        $('#temp' + idArr[i]).text('Temp: ' + forecastTemp + ' \xB0F');
+
+        var forecastHumidity = cityData.daily[i].humidity;
+        $('#humidity' + idArr[i]).text('Humidity: ' + forecastHumidity + ' \xB0F');
+    }
 };
 
-var startup = function() {
-    fetchCityWeather();
-    createResultElements();
-};
-
-startup();
+fetchCityCoordinates();
+createResultElements();
 $('.form').on('submit', search);

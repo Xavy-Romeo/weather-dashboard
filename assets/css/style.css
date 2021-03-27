@@ -78,6 +78,7 @@ body
     margin: 15px;
     background-color: blue;
     border-radius: 7px;
+    color: white;
 } 
 
 #forecast-title {
