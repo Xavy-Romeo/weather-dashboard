@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+/* header styles */
 header {
     background: rgba(49, 48, 48, 1);
     text-align: center;
@@ -15,6 +16,7 @@ header h1 {
     font-size: 60px;
 }
 
+/* search form styles */
 .search-container {
     background-color: rgb(205, 205, 205);
 }
@@ -52,7 +54,9 @@ header h1 {
     height: 25px;
     width: 25px;
 }
+/* end search form styles */
 
+/* search history styles */
 #history-container {
     margin: 37px 0 0 0;
 }
@@ -65,12 +69,14 @@ header h1 {
     font-size: 22px;
     height: 70px;
 }
+/* end search history styles */
 
 body
  {
     background-color: rgb(215, 215, 215);
 }
 
+/* current weather styles */
 .results {
     font-size: 22px;
 }
@@ -93,6 +99,14 @@ body
     font-weight: bold;
 }
 
+#uv-index {
+    padding: 7px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.253);
+}
+/* end current weather styles */
+
+/* forecast weather styles */
 #forecast-container {
     margin: 60px 0 0 0;
 }
@@ -117,9 +131,4 @@ body
 .forecast-dates {
     font-weight: bold;
 }
-
-#uv-index {
-    padding: 7px 15px;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.253);
-}
+/* end forecast weather styles */
