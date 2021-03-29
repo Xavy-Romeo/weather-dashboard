@@ -54,7 +54,7 @@ var fetchCityWeather = function(cityInputData, cityLat, cityLon) {
 
 var fetchUvIndex = function(cityLat, cityLon) {
     // store value of url based on lat & lon
-    var uvIndexUrl = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + cityLat + '&lon=' + cityLon + '&appid=3a01189ad2669a4fe12bba52ee8f9ead';
+    var uvIndexUrl = 'https://api.openweathermap.org/data/2.5/uvi?lat=' + cityLat + '&lon=' + cityLon + '&appid=3a01189ad2669a4fe12bba52ee8f9ead';
     
     // fetch UV index data
     fetch(uvIndexUrl)
