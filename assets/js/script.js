@@ -146,7 +146,7 @@ var displayResults = function(cityData, cityInputData) {
     var dateFormat = '(' + date + ')';
     
     // get weather icon based on weather data
-    var iconUrl = 'http://openweathermap.org/img/wn/' + cityInputData.list[0].weather[0].icon +'@2x.png';
+    var iconUrl = 'https://openweathermap.org/img/wn/' + cityInputData.list[0].weather[0].icon +'@2x.png';
     $('.title-icon').attr('src', iconUrl);
 
     // current weather data
@@ -167,7 +167,7 @@ var displayResults = function(cityData, cityInputData) {
         $('#date' + idArr[i]).text(forecastDate);
        
         // forecast weather icon
-        var forecastIconUrl = 'http://openweathermap.org/img/wn/' + cityData.daily[i].weather[0].icon +'@2x.png';
+        var forecastIconUrl = 'https://openweathermap.org/img/wn/' + cityData.daily[i].weather[0].icon +'@2x.png';
         $('#forecast-icon' + idArr[i]).attr('src', forecastIconUrl);
         
         // forecast temperature
